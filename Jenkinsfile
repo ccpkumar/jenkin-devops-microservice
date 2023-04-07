@@ -48,11 +48,11 @@ pipeline {
 				sh "mvn failsafe:integration-test failsafe:verify"
 			}
 		}	
-		stage('Package') {
+		stage('IntegrationTest') {
 			steps {
 				sh "mvn package -DskipTests"
 			}
-		}
+		}		
 		stage('Build Docker Image') {
 			steps {
 				//"docker build -t prasannacc/currency-exchange-devops:$env.BUILD_TAG"
@@ -60,7 +60,7 @@ pipeline {
 				    dockerImage = docker.build("prasannacc/currency-exchange-devops:${env.BUILD_TAG}")
 				}
 			}
-		}	
+		}
 		stage('Push Docker Image') {
 			steps {
 				script {	
@@ -71,7 +71,8 @@ pipeline {
 				}
 			}
 		} 
-	
+				
+	} 
 	
 	post {
 		always {
@@ -83,6 +84,5 @@ pipeline {
 		failure {
 			echo 'I  run when you are Fail'
 		}
-	}
 	}
 }
