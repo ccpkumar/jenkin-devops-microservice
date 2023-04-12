@@ -21,7 +21,6 @@ pipeline {
 		stage('Checkout') {
 			steps {
 				sh 'mvn --version'
-				//nohup 'node --version'
 				sh 'docker version'
 				echo "Build"
 				echo "$PATH"
