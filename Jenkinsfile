@@ -20,9 +20,9 @@ pipeline {
 	stages {
 		stage('Checkout') {
 			steps {
-				nohup 'mvn --version'
+				sh 'mvn --version'
 				//nohup 'node --version'
-				nohup 'docker version'
+				sh 'docker version'
 				echo "Build"
 				echo "$PATH"
 				echo "BUILD_NUMBER = $env.BUILD_NUMBER"
@@ -33,44 +33,6 @@ pipeline {
 				
 			}
 		}
-		stage('Compile') {
-			steps {
-				nohup 'mvn clean compile'
-			}
-		}
-		stage('Test') {
-			steps {
-				nohup "mvn test"
-			}
-		}
-		stage('IntegrationTest') {
-			steps {
-				nohup "mvn failsafe:integration-test failsafe:verify"
-			}
-		}	
-		stage('Package') {
-			steps {
-				nohup "mvn package -DskipTests"
-			}
-		}		
-		stage('Build Docker Image') {
-			steps {
-				//"docker build -t prasannacc/currency-exchange-devops:$env.BUILD_TAG"
-				script {				    
-				    dockerImage = docker.build("prasannacc/currency-exchange-devops:${env.BUILD_TAG}")
-				}
-			}
-		}
-		stage('Push Docker Image') {
-			steps {
-				script {	
-					docker.withRegistry('','dockerhub'){    
-				    	dockerImage.push();
-				    	dockerImage.push('latest');
-				    }
-				}
-			}
-		} 
 				
 	} 
 	
