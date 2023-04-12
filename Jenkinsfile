@@ -20,7 +20,7 @@ pipeline {
 	stages {
 		stage('Checkout') {
 			steps {
-				nuhup 'mvn --version'
+				nohup 'mvn --version'
 				//nohup 'node --version'
 				nohup 'docker version'
 				echo "Build"
