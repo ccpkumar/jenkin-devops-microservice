@@ -20,9 +20,9 @@ pipeline {
 	stages {
 		stage('Checkout') {
 			steps {
-				sh 'mvn --version'
+				bat 'mvn --version'
 				//nohup 'node --version'
-				sh 'docker version'
+				bat 'docker version'
 				echo "Build"
 				echo "$PATH"
 				echo "BUILD_NUMBER = $env.BUILD_NUMBER"
