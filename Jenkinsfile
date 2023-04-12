@@ -20,9 +20,9 @@ pipeline {
 	stages {
 		stage('Checkout') {
 			steps {
-				bat 'mvn --version'
-				//bat 'node --version'
-				bat 'docker version'
+				nohup 'mvn --version'
+				//nohup 'node --version'
+				nohup 'docker version'
 				echo "Build"
 				echo "$PATH"
 				echo "BUILD_NUMBER = $env.BUILD_NUMBER"
@@ -35,22 +35,22 @@ pipeline {
 		}
 		stage('Compile') {
 			steps {
-				bat 'mvn clean compile'
+				nohup 'mvn clean compile'
 			}
 		}
 		stage('Test') {
 			steps {
-				bat "mvn test"
+				nohup "mvn test"
 			}
 		}
 		stage('IntegrationTest') {
 			steps {
-				bat "mvn failsafe:integration-test failsafe:verify"
+				nohup "mvn failsafe:integration-test failsafe:verify"
 			}
 		}	
 		stage('Package') {
 			steps {
-				bat "mvn package -DskipTests"
+				nohup "mvn package -DskipTests"
 			}
 		}		
 		stage('Build Docker Image') {
